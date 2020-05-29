@@ -1,5 +1,5 @@
 <?php
-
+/*Pas de configuration pour la database vue que l application va juste consommmer un service web externe*/
 use Illuminate\Support\Str;
 
 return [
