@@ -14,10 +14,14 @@ use Illuminate\Support\Facades\Route;
 
 //GET routes
 Route::get('/','Controller@index');
-Route::get('/{id}','Controller@post');
-Route::get('/{id}/comments','Controller@post_comments');
-Route::get('/posts/user/{user_id}','Controller@posts_by_user');
-Route::get('/users/show','Controller@all_users');
-Route::get('/user/{user_id}','Controller@user');
+Route::get('/users/{id}','Controller@user');
 
 //POST routes
+//test post
+Route::get('/user/save','Controller@save');
+
+//test update
+Route::get('/user/update/{id}','Controller@update');
+
+//test delete
+Route::get('/user/delete/{id}','Controller@delete');
