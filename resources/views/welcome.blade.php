@@ -197,7 +197,7 @@
                       success: function(result){
                         $('#exampleModal .alert').show();
                         $('#infos_user').hide();
-                        $('#exampleModal .alert').html('<h4>utilisateur ont été supprime avec succès</h4>');                     
+                        $('#exampleModal .alert').html('<h4>utilisateur a été supprime avec succès</h4>');                     
                          //fermer le modal
                          setTimeout(function() {
                             $("#exampleModal .close").click();$('#exampleModal .alert').hide();$('#infos_user').show();
