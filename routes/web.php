@@ -33,8 +33,8 @@ Route::get('/user/{id}','Controller@user');
 //post
 Route::post('/user/save','Controller@save');
 
-//test update
-Route::get('/user/update/{id}','Controller@update');
+//update
+Route::post('/user/update','Controller@update');
 
 //test delete
 Route::post('/user/delete','Controller@delete');

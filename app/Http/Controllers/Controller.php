@@ -20,8 +20,6 @@ class Controller extends BaseController
     	$response = Http::get('https://reqres.in/api/users?page='.$page);
 
     	//status == 200
-    	//dd($response->status());
-		//dd($response->json());
     	$data = $response->json();
         return view('welcome', ['data' => $data ]);
     }
@@ -29,10 +27,7 @@ class Controller extends BaseController
     public function total_records(){
     	//show all users
     	$response = Http::get('https://reqres.in/api/users');
-
     	//status == 200
-    	//dd($response->status());
-		//dd($response->json());
     	$total = $response->json();
     	dd($total);
 
@@ -65,8 +60,12 @@ class Controller extends BaseController
     	$response = Http::get('https://reqres.in/api/users/'.$id);
 
     	//status == 200
-    	//dd($response->status());
-		dd($response->json());
+        if( $response->status() == 200){
+            return view('user', ['data' => $response->json() ]);
+        }else{
+            return view('erreur', ['message' => 'cet utilisateur est introuvable ou l\'url n est pas correct;veuillez contacter votre administrateur' ]);
+        }
+        
     }
 
 	public function save(Request $request)
@@ -80,18 +79,18 @@ class Controller extends BaseController
         ]);
 
         if ($validator->fails()) {
-            return redirect('/erreur')
-                        ->withErrors($validator)
-                        ->withInput();
+            return view('erreur', ['message' => 'toutes les champs sont requis' ]);
         }
         $response = Http::post('https://reqres.in/api/users', [    				
     				'name' => $request->first_name ,
     				'job' => $request->job ,
     			]);
+
         //si l API externe retourne une erreur
         if($response->status() != 201 || count($response->json()) == 0){
-            return redirect('/erreur')->withErrors('erreur vien de l API externe');
+            return view('erreur', ['message' => 'Erreur dans l\'API externe veuillez reessaye plus tard' ]);
         }
+
         //tout est correct => envoi des infos retourné par l API a la vue
         return $response;
     }
@@ -105,15 +104,29 @@ class Controller extends BaseController
     }
 
 
-    public function update($id)
+    public function update(Request $request)
     {
-        $response = Http::patch('https://reqres.in/api/users/'.$id, [                   
-                    'name' => 'raddis' ,
-                    'job' => 'web developer' ,
+        
+        //validation back-end
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'job' => 'required',
+            'email' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return view('erreur', ['message' => 'tout les champs sont requis' ]);
+        }
+
+        $response = Http::patch('https://reqres.in/api/users/'.$request->id, [                   
+                    'name' => $request->first_name ,
+                    'job' => $request->job ,
                 ]);
         //status == 200
         //dd($response->status());
-        dd($response->json());
+        return $response->json();
     }
 
 
