@@ -11,17 +11,32 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//error route
+Route::get('/erreur',function () {
+    echo "erreur";
+});
 
-//GET routes
-Route::get('/','Controller@index');
-Route::get('/users/{id}','Controller@user');
+//get total records
+Route::get('/total','Controller@total_records');
 
-//POST routes
-//test post
-Route::get('/user/save','Controller@save');
+
+//get max records per page
+Route::get('/total/page','Controller@total_records_per_page');
+
+//get total pages
+Route::get('/total/pages','Controller@total_pages');
+
+//test get
+Route::get('/{page?}','Controller@index');
+Route::get('/user/{id}','Controller@user');
+
+//post
+Route::post('/user/save','Controller@save');
 
 //test update
 Route::get('/user/update/{id}','Controller@update');
 
 //test delete
-Route::get('/user/delete/{id}','Controller@delete');
+Route::post('/user/delete','Controller@delete');
+
+
