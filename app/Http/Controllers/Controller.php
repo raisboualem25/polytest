@@ -15,13 +15,23 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function index($page = null){
+    public function index($page = 1){
     	//show all users
-    	$response = Http::get('https://reqres.in/api/users?page='.$page);
 
-    	//status == 200
-    	$data = $response->json();
-        return view('welcome', ['data' => $data ]);
+        //valider le parametre passe pour la page
+        $page = intval($page);
+    	$response = Http::get('https://reqres.in/api/users?page='.$page);
+        //status == 200
+        $data = $response->json();
+
+        if($page == 0 || $page > $data['total_pages'] || $response->status() != 200){
+            //erreur page non trouver
+            return view('erreur', ['message' => 'La page que vous cherchez est non disponible' ]);
+        }else{
+            //si la page existe et le statut est a 200
+            return view('welcome', ['data' => $data ]);
+        }
+        
     }
 
     public function total_records(){
