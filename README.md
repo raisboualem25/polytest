@@ -29,10 +29,14 @@ master ==> pour la production
 
 #4--installation et execution du projet
 	4-1- assurer d avoir la configuration la plus proches possible du point 1 (php)
-	4-2- cloner le repositoire 
-	4-3- aller au repetoire cloner '**/polytest' ==> cd polytest
+	4-2- cloner le repositoire 'git clone https://github.com/raisboualem25/polytest.git'
+	4-3- aller au repetoire cloner '**/polytest' ==> 'cd polytest'
 	4-4- lancer l'invite de commandes (cmd) dans ce repertoire
-	4-5- execute composer install (pour construire ) 
+	4-5- execute 'composer install' (Installer les dépendances du projet à partir de composer )
+	4-6- creer le fichier .env 'copy .env.example .env'
+	4-7- generer votre cle d'encryption 'php artisan key:generate'
+	4-8- lancer le serveur laravel 'php artisan serve' c est pour lancer Laravel development server 
+	4-9- utiliser votre navigateur prefere pour lancer l'url generer par  laravel serve ex:  http://127.0.0.1:8000
 
 
 
